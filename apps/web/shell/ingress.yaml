@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shell-ingress
+  namespace: web
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts: [ "shell.preprod.qoffice.cloud" ]
+      secretName: shell-tls
+  rules:
+    - host: shell.preprod.qoffice.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: shell, port: { number: 80 } }

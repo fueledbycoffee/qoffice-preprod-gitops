@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shell
+  namespace: web
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: shell } }
+  template:
+    metadata: { labels: { app: shell } }
+    spec:
+      containers:
+        - name: shell
+          image: ghcr.io/fueledbycoffee/qoffice-shell:preprod-latest
+          ports: [ { containerPort: 80 } ]

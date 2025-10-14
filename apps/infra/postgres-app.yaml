@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra-postgres
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    targetRevision: 15.5.20
+    helm:
+      values: |
+        global:
+          postgresql:
+            auth:
+              existingSecret: pg-secrets
+              secretKeys:
+                adminPasswordKey: postgres-password
+        primary:
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+          persistence:
+            size: 20Gi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: infra
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

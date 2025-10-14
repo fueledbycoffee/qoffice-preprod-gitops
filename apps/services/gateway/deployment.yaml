@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: platform
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: gateway } }
+  template:
+    metadata: { labels: { app: gateway } }
+    spec:
+      containers:
+        - name: gateway
+          image: ghcr.io/fueledbycoffee/qoffice-gateway:preprod-latest
+          ports: [ { containerPort: 8081 } ]
+          env:
+            - name: PORT
+              value: "8081"
+            - name: OIDC_ISSUER
+              value: https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod
+            - name: OIDC_CLIENT_ID
+              value: qoffice-gateway
+            - name: OIDC_CLIENT_SECRET
+              valueFrom: { secretKeyRef: { name: gateway-secrets, key: OIDC_CLIENT_SECRET } }
+            - name: JWT_SECRET
+              valueFrom: { secretKeyRef: { name: gateway-secrets, key: JWT_SECRET } }
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: redis-conn
+                  key: url
+            - name: S3_ENDPOINT
+              value: http://minio.data.svc.cluster.local:9000
+            - name: MEILISEARCH_URL
+              value: http://meilisearch.search.svc.cluster.local:7700
+          readinessProbe:
+            httpGet: { path: /health, port: 8081 }
+            initialDelaySeconds: 10
+            periodSeconds: 5

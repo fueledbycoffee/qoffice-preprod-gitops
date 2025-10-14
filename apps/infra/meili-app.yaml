@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra-meilisearch
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: meilisearch
+    targetRevision: 3.4.14
+    helm:
+      values: |
+        existingSecret: meili-secrets
+        existingSecretKey: masterKey
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+        persistence:
+          size: 20Gi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: search
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [ CreateNamespace=true ]

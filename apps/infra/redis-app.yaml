@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra-redis
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: redis
+    targetRevision: 19.6.2
+    helm:
+      values: |
+        auth:
+          existingSecret: redis-secrets
+        master:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          persistence:
+            size: 5Gi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: infra
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [ CreateNamespace=true ]
