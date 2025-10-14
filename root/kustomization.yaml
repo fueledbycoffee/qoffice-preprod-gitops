@@ -1,10 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../apps/infra/postgres-app.yaml
-  - ../apps/infra/redis-app.yaml
-  - ../apps/infra/minio-app.yaml
-  - ../apps/infra/meili-app.yaml
-  - ../apps/infra/keycloak-app.yaml
-  - ../apps/services/gateway/app.yaml
-  - ../apps/web/shell/app.yaml
+  - apps/infra/postgres-app.yaml
+  - apps/infra/redis-app.yaml
+  - apps/infra/minio-app.yaml
+  - apps/infra/meili-app.yaml
+  - apps/infra/keycloak-app.yaml
+  - apps/services/gateway/app.yaml
+  - apps/web/shell/app.yaml
