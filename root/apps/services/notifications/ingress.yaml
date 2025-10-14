@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: notifications-ingress
+  namespace: platform
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts: [ "notifications.preprod.qoffice.cloud" ]
+      secretName: notifications-tls
+  rules:
+    - host: notifications.preprod.qoffice.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: notifications, port: { number: 8080 } } }

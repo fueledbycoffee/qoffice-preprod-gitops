@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: billing-ingress
+  namespace: platform
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts: [ "billing.preprod.qoffice.cloud" ]
+      secretName: billing-tls
+  rules:
+    - host: billing.preprod.qoffice.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: billing, port: { number: 8080 } } }

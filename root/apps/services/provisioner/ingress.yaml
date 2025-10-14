@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: provisioner-ingress
+  namespace: platform
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts: [ "provisioner.preprod.qoffice.cloud" ]
+      secretName: provisioner-tls
+  rules:
+    - host: provisioner.preprod.qoffice.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: provisioner, port: { number: 8080 } } }

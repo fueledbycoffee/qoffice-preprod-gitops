@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: admin, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: admin } }
+  template:
+    metadata: { labels: { app: admin } }
+    spec:
+      containers:
+        - name: admin
+          image: ghcr.io/fueledbycoffee/qoffice-admin:preprod-latest
+          ports: [ { containerPort: 80 } ]

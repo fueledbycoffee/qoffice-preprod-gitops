@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: revenue-console-ingress
+  namespace: web
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts: [ "revenue-console.preprod.qoffice.cloud" ]
+      secretName: revenue-console-tls
+  rules:
+    - host: revenue-console.preprod.qoffice.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: revenue-console, port: { number: 80 } } }

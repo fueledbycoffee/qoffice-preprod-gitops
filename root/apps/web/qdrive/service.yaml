@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Service
+metadata: { name: qdrive, namespace: web }
+spec:
+  selector: { app: qdrive }
+  ports: [ { port: 80, targetPort: 80 } ]
+  type: ClusterIP

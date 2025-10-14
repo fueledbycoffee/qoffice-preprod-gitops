@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wopi-bridge-ingress
+  namespace: platform
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts: [ "wopi-bridge.preprod.qoffice.cloud" ]
+      secretName: wopi-bridge-tls
+  rules:
+    - host: wopi-bridge.preprod.qoffice.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: wopi-bridge, port: { number: 8080 } } }

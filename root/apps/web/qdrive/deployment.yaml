@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qdrive, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qdrive } }
+  template:
+    metadata: { labels: { app: qdrive } }
+    spec:
+      containers:
+        - name: qdrive
+          image: ghcr.io/fueledbycoffee/qoffice-qdrive:preprod-latest
+          ports: [ { containerPort: 80 } ]

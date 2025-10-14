@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qai, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qai } }
+  template:
+    metadata: { labels: { app: qai } }
+    spec:
+      containers:
+        - name: qai
+          image: ghcr.io/fueledbycoffee/qoffice-qai:preprod-latest
+          ports: [ { containerPort: 80 } ]

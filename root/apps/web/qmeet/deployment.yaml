@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qmeet, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qmeet } }
+  template:
+    metadata: { labels: { app: qmeet } }
+    spec:
+      containers:
+        - name: qmeet
+          image: ghcr.io/fueledbycoffee/qoffice-qmeet:preprod-latest
+          ports: [ { containerPort: 80 } ]

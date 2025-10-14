@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qchat, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qchat } }
+  template:
+    metadata: { labels: { app: qchat } }
+    spec:
+      containers:
+        - name: qchat
+          image: ghcr.io/fueledbycoffee/qoffice-qchat:preprod-latest
+          ports: [ { containerPort: 80 } ]

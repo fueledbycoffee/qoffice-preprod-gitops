@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qcalendar-qcontacts-ingress
+  namespace: platform
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts: [ "qcalendar-qcontacts.preprod.qoffice.cloud" ]
+      secretName: qcalendar-qcontacts-tls
+  rules:
+    - host: qcalendar-qcontacts.preprod.qoffice.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: qcalendar-qcontacts, port: { number: 8080 } } }

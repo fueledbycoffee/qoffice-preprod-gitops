@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qadmin, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qadmin } }
+  template:
+    metadata: { labels: { app: qadmin } }
+    spec:
+      containers:
+        - name: qadmin
+          image: ghcr.io/fueledbycoffee/qoffice-qadmin:preprod-latest
+          ports: [ { containerPort: 80 } ]

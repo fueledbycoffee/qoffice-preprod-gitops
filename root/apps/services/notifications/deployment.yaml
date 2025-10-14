@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: notifications, namespace: platform }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: notifications } }
+  template:
+    metadata: { labels: { app: notifications } }
+    spec:
+      containers:
+        - name: notifications
+          image: ghcr.io/fueledbycoffee/qoffice-notifications:preprod-latest
+          ports: [ { containerPort: 8080 } ]

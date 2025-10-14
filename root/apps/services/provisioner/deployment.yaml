@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: provisioner, namespace: platform }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: provisioner } }
+  template:
+    metadata: { labels: { app: provisioner } }
+    spec:
+      containers:
+        - name: provisioner
+          image: ghcr.io/fueledbycoffee/qoffice-provisioner:preprod-latest
+          ports: [ { containerPort: 8080 } ]

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Service
+metadata: { name: qaccount, namespace: web }
+spec:
+  selector: { app: qaccount }
+  ports: [ { port: 80, targetPort: 80 } ]
+  type: ClusterIP

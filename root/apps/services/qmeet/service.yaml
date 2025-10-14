@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Service
+metadata: { name: qmeet, namespace: platform }
+spec:
+  selector: { app: qmeet }
+  ports: [ { port: 8080, targetPort: 8080 } ]
+  type: ClusterIP

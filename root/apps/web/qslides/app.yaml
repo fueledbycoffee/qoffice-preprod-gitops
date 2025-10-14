@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: web-qslides
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/fueledbycoffee/qoffice-preprod-gitops.git
+    targetRevision: main
+    path: root/apps/web/qslides
+    kustomize: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: web
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [ CreateNamespace=true ]

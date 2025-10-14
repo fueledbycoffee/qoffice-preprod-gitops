@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qcalendar-qcontacts, namespace: platform }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qcalendar-qcontacts } }
+  template:
+    metadata: { labels: { app: qcalendar-qcontacts } }
+    spec:
+      containers:
+        - name: qcalendar-qcontacts
+          image: ghcr.io/fueledbycoffee/qoffice-qcalendar-qcontacts:preprod-latest
+          ports: [ { containerPort: 8080 } ]

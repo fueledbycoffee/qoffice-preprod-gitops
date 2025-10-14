@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Service
+metadata: { name: indexer, namespace: platform }
+spec:
+  selector: { app: indexer }
+  ports: [ { port: 8080, targetPort: 8080 } ]
+  type: ClusterIP

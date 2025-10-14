@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: wopi-bridge, namespace: platform }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: wopi-bridge } }
+  template:
+    metadata: { labels: { app: wopi-bridge } }
+    spec:
+      containers:
+        - name: wopi-bridge
+          image: ghcr.io/fueledbycoffee/qoffice-wopi-bridge:preprod-latest
+          ports: [ { containerPort: 8080 } ]

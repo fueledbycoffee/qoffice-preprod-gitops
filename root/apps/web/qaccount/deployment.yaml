@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qaccount, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qaccount } }
+  template:
+    metadata: { labels: { app: qaccount } }
+    spec:
+      containers:
+        - name: qaccount
+          image: ghcr.io/fueledbycoffee/qoffice-qaccount:preprod-latest
+          ports: [ { containerPort: 80 } ]

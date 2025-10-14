@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: revenue-console, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: revenue-console } }
+  template:
+    metadata: { labels: { app: revenue-console } }
+    spec:
+      containers:
+        - name: revenue-console
+          image: ghcr.io/fueledbycoffee/qoffice-revenue-console:preprod-latest
+          ports: [ { containerPort: 80 } ]

@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qmail, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qmail } }
+  template:
+    metadata: { labels: { app: qmail } }
+    spec:
+      containers:
+        - name: qmail
+          image: ghcr.io/fueledbycoffee/qoffice-qmail:preprod-latest
+          ports: [ { containerPort: 80 } ]

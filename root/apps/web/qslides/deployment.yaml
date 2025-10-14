@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qslides, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qslides } }
+  template:
+    metadata: { labels: { app: qslides } }
+    spec:
+      containers:
+        - name: qslides
+          image: ghcr.io/fueledbycoffee/qoffice-qslides:preprod-latest
+          ports: [ { containerPort: 80 } ]
