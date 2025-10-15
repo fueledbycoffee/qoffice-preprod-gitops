@@ -11,6 +11,8 @@ spec:
     targetRevision: 19.6.2
     helm:
       values: |
+        global:
+          imageRegistry: quay.io
         auth:
           existingSecret: redis-secrets
         master:

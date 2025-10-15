@@ -12,6 +12,7 @@ spec:
     helm:
       values: |
         global:
+          imageRegistry: quay.io
           postgresql:
             auth:
               existingSecret: pg-secrets

@@ -11,6 +11,8 @@ spec:
     targetRevision: 14.9.4
     helm:
       values: |
+        global:
+          imageRegistry: quay.io
         auth:
           existingSecret: minio-secrets
           rootUserKey: root-user

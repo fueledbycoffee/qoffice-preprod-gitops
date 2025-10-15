@@ -11,6 +11,8 @@ spec:
     targetRevision: 3.4.14
     helm:
       values: |
+        global:
+          imageRegistry: quay.io
         existingSecret: meili-secrets
         existingSecretKey: masterKey
         resources:
