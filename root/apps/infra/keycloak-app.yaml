@@ -6,29 +6,15 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: keycloak
-    targetRevision: 24.4.7
-    helm:
-      values: |
-        auth:
-          adminUser: admin
-          existingSecret: keycloak-admin
-          passwordSecretKey: admin-password
-        postgresql:
-          enabled: false
-        externalDatabase:
-          host: postgres-postgresql.infra.svc.cluster.local
-          user: keycloak
-          password: ""
-          database: keycloak
-        resources:
-          requests:
-            cpu: 200m
-            memory: 512Mi
+    repoURL: https://github.com/fueledbycoffee/qoffice-preprod-gitops
+    targetRevision: main
+    path: root/infra/keycloak
   destination:
     server: https://kubernetes.default.svc
     namespace: auth
   syncPolicy:
-    automated: { prune: true, selfHeal: true }
-    syncOptions: [ CreateNamespace=true ]
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init
+  namespace: infra
+data:
+  init.sql: |
+    CREATE USER keycloak WITH PASSWORD 'change-me';
+    CREATE USER platform WITH PASSWORD 'change-me';
+    CREATE DATABASE keycloak OWNER keycloak;
+    CREATE DATABASE platform OWNER platform;

@@ -6,25 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: postgresql
-    targetRevision: 15.5.20
-    helm:
-      values: |
-        global:
-          imageRegistry: quay.io
-          postgresql:
-            auth:
-              existingSecret: pg-secrets
-              secretKeys:
-                adminPasswordKey: postgres-password
-        primary:
-          resources:
-            requests:
-              cpu: 200m
-              memory: 512Mi
-          persistence:
-            size: 20Gi
+    repoURL: https://github.com/fueledbycoffee/qoffice-preprod-gitops
+    targetRevision: main
+    path: root/infra/postgres
   destination:
     server: https://kubernetes.default.svc
     namespace: infra
