@@ -27,6 +27,11 @@ spec:
                 secretKeyRef:
                   name: admin-api-secrets
                   key: JWT_SECRET
+            - name: KEYCLOAK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: admin-api-secrets
+                  key: KEYCLOAK_CLIENT_SECRET
             - name: KEYCLOAK_URL
               value: http://keycloak.auth.svc.cluster.local:8080
             - name: KEYCLOAK_REALM
