@@ -30,11 +30,11 @@ spec:
                   name: qmail-secrets
                   key: DATABASE_URL
             - name: OIDC_ISSUER
-              value: https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod
+              value: http://keycloak.auth.svc.cluster.local:8080/realms/qoffice-preprod
             - name: OIDC_CLIENT_ID
               value: qmail-service
             - name: KEYCLOAK_URL
-              value: https://keycloak.preprod.qoffice.cloud
+              value: http://keycloak.auth.svc.cluster.local:8080
             - name: KEYCLOAK_REALM
               value: qoffice-preprod
             - name: OIDC_CLIENT_SECRET

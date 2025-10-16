@@ -25,5 +25,16 @@ spec:
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: gateway-secrets
+                  name: admin-api-secrets
                   key: JWT_SECRET
+            - name: KEYCLOAK_URL
+              value: http://keycloak.auth.svc.cluster.local:8080
+            - name: KEYCLOAK_REALM
+              value: qoffice-preprod
+            - name: KEYCLOAK_ADMIN_USER
+              value: admin
+            - name: KEYCLOAK_ADMIN_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-admin-creds
+                  key: password
