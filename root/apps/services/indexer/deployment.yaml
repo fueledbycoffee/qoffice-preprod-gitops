@@ -22,3 +22,8 @@ spec:
                 secretKeyRef:
                   name: indexer-secrets
                   key: MEILISEARCH_API_KEY
+            - name: WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-secrets
+                  key: JWT_SECRET

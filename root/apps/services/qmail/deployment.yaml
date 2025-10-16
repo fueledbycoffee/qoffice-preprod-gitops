@@ -33,6 +33,10 @@ spec:
               value: https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod
             - name: OIDC_CLIENT_ID
               value: qmail-service
+            - name: KEYCLOAK_URL
+              value: https://keycloak.preprod.qoffice.cloud
+            - name: KEYCLOAK_REALM
+              value: qoffice-preprod
             - name: OIDC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
