@@ -48,7 +48,6 @@ spec:
               - hosts:
                   - vault.preprod.qoffice.cloud
                 secretName: vault-tls
-          authDelegator: true
           standalone:
             enabled: false
           extraEnvironmentVars:
