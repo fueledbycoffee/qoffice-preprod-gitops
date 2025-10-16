@@ -15,11 +15,8 @@ spec:
           tlsDisable: false
 
         server:
-          ha:
+          standalone:
             enabled: true
-            raft:
-              enabled: true
-              setNodeId: true
           dataStorage:
             enabled: true
             storageClass: longhorn
@@ -48,8 +45,6 @@ spec:
               - hosts:
                   - vault.preprod.qoffice.cloud
                 secretName: vault-tls
-          standalone:
-            enabled: false
           extraEnvironmentVars:
             VAULT_LOG_LEVEL: info
           config: |
@@ -61,12 +56,11 @@ spec:
               tls_disable = true
             }
 
-            storage "raft" {
+            storage "file" {
               path = "/vault/data"
             }
 
-            api_addr     = "http://vault.vault.svc.cluster.local:8200"
-            cluster_addr = "http://vault-0.vault-internal:8201"
+            api_addr = "http://ops-vault.vault.svc.cluster.local:8200"
 
         injector:
           enabled: false
