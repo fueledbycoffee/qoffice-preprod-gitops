@@ -12,15 +12,47 @@ spec:
           image: ghcr.io/fueledbycoffee/qoffice-provisioner:preprod-latest
           ports: [ { containerPort: 8080 } ]
           env:
+            - name: PORT
+              value: "8080"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DATABASE_URL
+            - name: QCALENDAR_DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DATABASE_URL
             - name: S3_ENDPOINT
               value: http://minio.data.svc.cluster.local:9000
             - name: S3_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
                   name: s3-credentials
-                  key: S3_ACCESS_KEY_ID
+                  key: S3_ACCESS_KEY
             - name: S3_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
                   name: s3-credentials
-                  key: S3_SECRET_ACCESS_KEY
+                  key: S3_SECRET_KEY
+            - name: MEILISEARCH_URL
+              value: http://meilisearch.search.svc.cluster.local:7700
+            - name: MEILISEARCH_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: meilisearch-credentials
+                  key: MEILI_MASTER_KEY
+            - name: KEYCLOAK_URL
+              value: https://keycloak.preprod.qoffice.cloud
+            - name: KEYCLOAK_REALM
+              value: qoffice-preprod
+            - name: KEYCLOAK_CLIENT_ID
+              value: provisioner-service
+            - name: KEYCLOAK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-admin-secret
+                  key: KEYCLOAK_CLIENT_SECRET
+            - name: QMAIL_DOMAINS
+              value: preprod.qoffice.cloud
