@@ -11,3 +11,9 @@ spec:
         - name: notifications
           image: ghcr.io/fueledbycoffee/qoffice-notifications:preprod-latest
           ports: [ { containerPort: 8080 } ]
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: notifications-secrets
+                  key: DATABASE_URL

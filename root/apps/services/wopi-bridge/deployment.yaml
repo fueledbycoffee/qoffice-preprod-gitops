@@ -24,3 +24,13 @@ spec:
                 secretKeyRef:
                   name: s3-credentials
                   key: S3_SECRET_KEY
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: wopi-bridge-secrets
+                  key: JWT_SECRET
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: wopi-bridge-secrets
+                  key: DATABASE_URL

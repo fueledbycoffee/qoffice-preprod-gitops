@@ -6,3 +6,12 @@ resources:
   - redis-conn.yaml
   - db-secret.yaml
   - s3-credentials.yaml
+  - admin-api-secrets.yaml
+  - billing-secrets.yaml
+  - indexer-secrets.yaml
+  - notifications-secrets.yaml
+  - qai-secrets.yaml
+  - qcalendar-qcontacts-secrets.yaml
+  - qmail-secrets.yaml
+  - wopi-bridge-secrets.yaml
+  - qmeet-secrets.yaml

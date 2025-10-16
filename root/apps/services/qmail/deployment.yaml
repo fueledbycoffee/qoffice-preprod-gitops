@@ -24,3 +24,17 @@ spec:
                 secretKeyRef:
                   name: s3-credentials
                   key: S3_SECRET_KEY
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: qmail-secrets
+                  key: DATABASE_URL
+            - name: OIDC_ISSUER
+              value: https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod
+            - name: OIDC_CLIENT_ID
+              value: qmail-service
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: qmail-secrets
+                  key: OIDC_CLIENT_SECRET

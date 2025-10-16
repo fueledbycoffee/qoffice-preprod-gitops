@@ -24,3 +24,8 @@ spec:
                 secretKeyRef:
                   name: s3-credentials
                   key: S3_SECRET_KEY
+            - name: QAI_POSTGRES_URL
+              valueFrom:
+                secretKeyRef:
+                  name: qai-secrets
+                  key: QAI_POSTGRES_URL
