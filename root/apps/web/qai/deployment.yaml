@@ -11,3 +11,13 @@ spec:
         - name: qai
           image: ghcr.io/fueledbycoffee/qoffice-qai:preprod-latest
           ports: [ { containerPort: 80 } ]
+          volumeMounts:
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+            - name: nginx-run
+              mountPath: /var/run
+      volumes:
+        - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-run
+          emptyDir: {}
