@@ -1,0 +1,14 @@
+serviceAccount:
+  create: true
+  name: external-secrets
+
+installCRDs: true
+
+replicaCount: 2
+
+webhook:
+  replicaCount: 2
+
+metrics:
+  serviceMonitor:
+    enabled: true

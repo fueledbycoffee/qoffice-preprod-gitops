@@ -29,8 +29,23 @@ spec:
                 secretKeyRef:
                   name: redis-conn
                   key: url
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DATABASE_URL
             - name: S3_ENDPOINT
               value: http://minio.data.svc.cluster.local:9000
+            - name: S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: S3_ACCESS_KEY
+            - name: S3_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: S3_SECRET_KEY
             - name: MEILISEARCH_URL
               value: http://meilisearch.search.svc.cluster.local:7700
           readinessProbe:

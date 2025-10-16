@@ -6,24 +6,16 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: minio
-    targetRevision: 14.9.4
-    helm:
-      values: |
-        global:
-          imageRegistry: quay.io
-        auth:
-          existingSecret: minio-secrets
-          rootUserKey: root-user
-          rootPasswordKey: root-password
-        defaultBuckets: qoffice-preprod
-        resources:
-          requests:
-            cpu: 200m
-            memory: 512Mi
-        persistence:
-          size: 50Gi
+    repoURL: https://github.com/fueledbycoffee/qoffice-preprod-gitops
+    targetRevision: main
+    path: root/infra/minio
+  ignoreDifferences:
+    - group: ""
+      kind: Secret
+      name: minio-secret
+      namespace: data
+      jsonPointers:
+        - /data
   destination:
     server: https://kubernetes.default.svc
     namespace: data

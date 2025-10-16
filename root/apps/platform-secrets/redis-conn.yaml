@@ -1,19 +1,21 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: redis-secret
-  namespace: infra
+  name: redis-conn
+  namespace: platform
 spec:
   refreshInterval: 1h
   secretStoreRef:
     name: vault
     kind: ClusterSecretStore
   target:
-    name: redis-secret
+    name: redis-conn
     creationPolicy: Owner
     deletionPolicy: Retain
+    template:
+      type: Opaque
   data:
-    - secretKey: REDIS_PASSWORD
+    - secretKey: url
       remoteRef:
-        key: preprod/infra/redis
-        property: REDIS_PASSWORD
+        key: preprod/platform/redis
+        property: url

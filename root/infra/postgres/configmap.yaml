@@ -5,7 +5,9 @@ metadata:
   namespace: infra
 data:
   init.sql: |
-    CREATE USER keycloak WITH PASSWORD 'change-me';
-    CREATE USER platform WITH PASSWORD 'change-me';
+    CREATE ROLE qoffice LOGIN PASSWORD 'qJVMaAoH+FN0GdLCt+mEtQ5Equrr8EpM';
+    CREATE ROLE keycloak LOGIN PASSWORD 'TLq5X^83bIb@#suZ&fVRcNGu=3^PzBiC';
+    CREATE ROLE platform LOGIN PASSWORD 'Na@pRiU)^Y&he5t#xsx0G6(CsEmQZ3wZ';
+    CREATE DATABASE qoffice OWNER qoffice;
     CREATE DATABASE keycloak OWNER keycloak;
     CREATE DATABASE platform OWNER platform;

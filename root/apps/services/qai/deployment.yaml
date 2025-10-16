@@ -11,3 +11,16 @@ spec:
         - name: qai
           image: ghcr.io/fueledbycoffee/qoffice-qai:preprod-latest
           ports: [ { containerPort: 8080 } ]
+          env:
+            - name: S3_ENDPOINT
+              value: http://minio.data.svc.cluster.local:9000
+            - name: S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: S3_ACCESS_KEY
+            - name: S3_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: S3_SECRET_KEY

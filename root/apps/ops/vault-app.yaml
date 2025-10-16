@@ -1,0 +1,107 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ops-vault
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/fueledbycoffee/qoffice-preprod-gitops
+    targetRevision: main
+    path: root/ops/vault
+        server:
+          ha:
+            enabled: true
+            raft:
+              enabled: true
+              setNodeId: true
+          dataStorage:
+            enabled: true
+            size: 10Gi
+            storageClass: longhorn
+          auditStorage:
+            enabled: true
+            size: 5Gi
+            storageClass: longhorn
+          standalone:
+            enabled: false
+          authDelegator: true
+          service:
+            type: ClusterIP
+            annotations:
+              prometheus.io/scrape: "true"
+              prometheus.io/port: "8200"
+          ingress:
+            enabled: true
+            ingressClassName: traefik
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-prod
+              traefik.ingress.kubernetes.io/router.entrypoints: websecure
+              traefik.ingress.kubernetes.io/router.middlewares: kube-system-secure-headers@kubernetescrd
+            hosts:
+              - host: vault.preprod.qoffice.cloud
+                paths:
+                  - path: /
+                    pathType: Prefix
+            tls:
+              - hosts:
+                  - vault.preprod.qoffice.cloud
+                secretName: vault-tls
+          extraEnvironmentVars:
+            VAULT_LOG_LEVEL: info
+          haRaftStorage:
+            raft:
+              retry_join:
+                - leader_api_addr: https://vault-0.vault-internal:8201
+                - leader_api_addr: https://vault-1.vault-internal:8201
+                - leader_api_addr: https://vault-2.vault-internal:8201
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/name: vault
+                        component: server
+                    topologyKey: kubernetes.io/hostname
+          extraVolumes:
+            - type: secret
+              name: tls-ca
+              secretName: vault-tls
+          extraVolumeMounts:
+            - name: tls-ca
+              mountPath: /vault/userconfig/tls
+              readOnly: true
+          haTlsSecretName: vault-tls
+          config: |
+            ui = true
+            listener "tcp" {
+              address       = "0.0.0.0:8200"
+              cluster_address = "0.0.0.0:8201"
+              tls_cert_file = "/vault/userconfig/tls/tls.crt"
+              tls_key_file  = "/vault/userconfig/tls/tls.key"
+            }
+            storage "raft" {
+              path    = "/vault/data"
+            }
+            cluster_addr = "https://127.0.0.1:8201"
+            api_addr     = "https://vault.preprod.qoffice.cloud"
+        injector:
+          enabled: false
+        csi:
+          enabled: false
+        ui:
+          enabled: true
+          serviceType: ClusterIP
+          externalTrafficPolicy: Cluster
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

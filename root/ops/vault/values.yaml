@@ -1,0 +1,77 @@
+global:
+  tlsDisable: false
+
+server:
+  ha:
+    enabled: true
+    raft:
+      enabled: true
+      setNodeId: true
+  dataStorage:
+    enabled: true
+    storageClass: longhorn
+    size: 10Gi
+  auditStorage:
+    enabled: true
+    storageClass: longhorn
+    size: 5Gi
+  service:
+    type: ClusterIP
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8200"
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.middlewares: kube-system-secure-headers@kubernetescrd
+    hosts:
+      - host: vault.preprod.qoffice.cloud
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - vault.preprod.qoffice.cloud
+        secretName: vault-tls
+  authDelegator: true
+  standalone:
+    enabled: false
+  extraEnvironmentVars:
+    VAULT_LOG_LEVEL: info
+  extraVolumes:
+    - name: vault-tls
+      secret:
+        secretName: vault-tls
+  extraVolumeMounts:
+    - name: vault-tls
+      mountPath: /vault/userconfig/tls
+      readOnly: true
+  config: |
+    ui = true
+
+    listener "tcp" {
+      address       = "0.0.0.0:8200"
+      cluster_address = "0.0.0.0:8201"
+      tls_cert_file = "/vault/userconfig/tls/tls.crt"
+      tls_key_file  = "/vault/userconfig/tls/tls.key"
+      tls_client_ca_file = "/vault/userconfig/tls/ca.crt"
+    }
+
+    storage "raft" {
+      path = "/vault/data"
+    }
+
+    api_addr     = "https://vault.preprod.qoffice.cloud"
+    cluster_addr = "https://vault-0.vault-internal:8201"
+
+injector:
+  enabled: false
+
+csi:
+  enabled: false
+
+ui:
+  enabled: true

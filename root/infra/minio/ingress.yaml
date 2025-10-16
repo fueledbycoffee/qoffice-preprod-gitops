@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio-console
+  namespace: data
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/ipwhitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+spec:
+  tls:
+    - hosts:
+        - minio.preprod.qoffice.cloud
+      secretName: minio-tls
+  rules:
+    - host: minio.preprod.qoffice.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: minio
+                port:
+                  number: 9001

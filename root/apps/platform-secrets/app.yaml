@@ -1,24 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infra-postgres
+  name: platform-secrets
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/fueledbycoffee/qoffice-preprod-gitops
     targetRevision: main
-    path: root/infra/postgres
-  ignoreDifferences:
-    - group: ""
-      kind: Secret
-      name: postgres-secret
-      namespace: infra
-      jsonPointers:
-        - /data
+    path: root/apps/platform-secrets
   destination:
     server: https://kubernetes.default.svc
-    namespace: infra
+    namespace: platform
   syncPolicy:
     automated:
       prune: true

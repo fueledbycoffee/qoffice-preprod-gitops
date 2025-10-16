@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: keycloak
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   tls:
     - hosts:
