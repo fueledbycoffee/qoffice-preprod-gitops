@@ -17,7 +17,7 @@ spec:
                 secretKeyRef:
                   name: indexer-secrets
                   key: DATABASE_URL
-            - name: MEILISEARCH_URL
+            - name: MEILISEARCH_HOST
               value: http://meilisearch.search.svc.cluster.local:7700
             - name: MEILISEARCH_API_KEY
               valueFrom:

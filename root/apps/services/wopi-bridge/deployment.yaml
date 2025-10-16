@@ -34,11 +34,5 @@ spec:
                 secretKeyRef:
                   name: wopi-bridge-secrets
                   key: DATABASE_URL
-            - name: OIDC_ISSUER_URL
-              value: http://keycloak.auth.svc.cluster.local:8080/realms/qoffice-preprod
-            - name: OIDC_CLIENT_ID
-              value: wopi-bridge
             - name: KEYCLOAK_URL
               value: http://keycloak.auth.svc.cluster.local:8080
-            - name: KEYCLOAK_REALM
-              value: qoffice-preprod

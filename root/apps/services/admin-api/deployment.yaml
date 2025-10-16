@@ -34,7 +34,4 @@ spec:
             - name: KEYCLOAK_ADMIN_USER
               value: admin
             - name: KEYCLOAK_ADMIN_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: keycloak-admin-creds
-                  key: password
+              value: Q3CMHMN91D3xrgoCNIip9J3SVOJZyehcUXv5UNGtrk8=

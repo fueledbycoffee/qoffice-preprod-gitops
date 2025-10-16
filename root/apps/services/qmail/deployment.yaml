@@ -29,14 +29,12 @@ spec:
                 secretKeyRef:
                   name: qmail-secrets
                   key: DATABASE_URL
-            - name: OIDC_ISSUER
-              value: http://keycloak.auth.svc.cluster.local:8080/realms/qoffice-preprod
-            - name: OIDC_CLIENT_ID
-              value: qmail-service
-            - name: KEYCLOAK_URL
+            - name: KEYCLOAK_BASE_URL
               value: http://keycloak.auth.svc.cluster.local:8080
             - name: KEYCLOAK_REALM
               value: qoffice-preprod
+            - name: OIDC_CLIENT_ID
+              value: qmail-service
             - name: OIDC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:

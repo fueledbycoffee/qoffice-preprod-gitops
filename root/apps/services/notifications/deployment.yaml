@@ -24,8 +24,3 @@ spec:
                   key: url
             - name: REDIS_HOST
               value: redis.infra.svc.cluster.local:6379
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: redis-conn
-                  key: password
