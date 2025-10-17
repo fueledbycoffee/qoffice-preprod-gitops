@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: shell
-          image: ghcr.io/fueledbycoffee/qoffice-shell:preprod-latest
+          image: ghcr.io/fueledbycoffee/qoffice-shell:preprod-80cedd228edda637ee18781f462794af1b8b3d74@sha256:3b216d67bfb3bcf0c7d3c4143c5ae3de17edbe4354e84554f14719ab3a5f545b
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache

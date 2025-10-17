@@ -29,3 +29,24 @@ spec:
                 secretKeyRef:
                   name: qai-secrets
                   key: QAI_POSTGRES_URL
+            - name: QAI_SERVER_PORT
+              value: "8180"
+            - name: QAI_ENVIRONMENT
+              value: "production"
+            - name: QAI_LOG_LEVEL
+              value: "info"
+            - name: QAI_OPENAI_KEY
+              value: "configured-via-database"
+            - name: QAI_REDIS_ADDR
+              value: "redis.infra.svc.cluster.local:6379"
+            - name: QAI_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-password
+                  key: REDIS_PASSWORD
+            - name: QAI_ENCRYPTION_ENABLED
+              value: "false"
+            - name: QAI_DATA_RETENTION_DAYS
+              value: "365"
+            - name: QAI_DEFAULT_RATE_LIMIT
+              value: "30"
