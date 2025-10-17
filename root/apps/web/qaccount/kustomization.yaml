@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
 images:
   - name: ghcr.io/fueledbycoffee/qoffice-qaccount
-    newTag: preprod-bbdb205
+    newTag: preprod-latest
