@@ -10,6 +10,7 @@ spec:
       containers:
         - name: qaccount
           image: ghcr.io/fueledbycoffee/qoffice-qaccount:preprod-latest
+          imagePullPolicy: Always
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache
