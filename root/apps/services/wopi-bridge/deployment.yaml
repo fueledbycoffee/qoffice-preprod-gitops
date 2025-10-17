@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: wopi-bridge
-          image: ghcr.io/fueledbycoffee/qoffice-wopi-bridge:preprod-latest
+          image: ghcr.io/fueledbycoffee/qoffice-wopi-bridge:preprod-fixed
           ports: [ { containerPort: 8080 } ]
           env:
             - name: S3_ENDPOINT

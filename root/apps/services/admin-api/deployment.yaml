@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: admin-api
-          image: ghcr.io/fueledbycoffee/qoffice-admin-api:preprod-latest
+          image: ghcr.io/fueledbycoffee/qoffice-admin-api:preprod-fixed
           ports: [ { containerPort: 8080 } ]
           env:
             - name: DATABASE_URL

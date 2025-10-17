@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qmail
-          image: ghcr.io/fueledbycoffee/qoffice-qmail:preprod-latest
+          image: ghcr.io/fueledbycoffee/qoffice-qmail:preprod-fixed
           ports: [ { containerPort: 8080 } ]
           env:
             - name: S3_ENDPOINT
@@ -40,3 +40,7 @@ spec:
                 secretKeyRef:
                   name: qmail-secrets
                   key: OIDC_CLIENT_SECRET
+            - name: ENVIRONMENT
+              value: "production"
+            - name: CORS_ORIGINS
+              value: "https://mail.preprod.qoffice.cloud,https://shell.preprod.qoffice.cloud,https://preprod.qoffice.cloud"
