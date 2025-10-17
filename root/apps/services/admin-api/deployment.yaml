@@ -40,8 +40,10 @@ spec:
               value: admin
             - name: KEYCLOAK_ADMIN_PASS
               value: Q3CMHMN91D3xrgoCNIip9J3SVOJZyehcUXv5UNGtrk8=
-            - name: REDIS_URL
+            - name: REDIS_ADDRESS
+              value: redis.infra.svc.cluster.local:6379
+            - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: redis-conn
-                  key: url
+                  name: redis-secret
+                  key: REDIS_PASSWORD
