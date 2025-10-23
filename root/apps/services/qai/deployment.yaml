@@ -7,10 +7,36 @@ spec:
   template:
     metadata: { labels: { app: qai } }
     spec:
+      initContainers:
+        - name: wait-for-db
+          image: postgres:16-alpine
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h postgres.infra.svc.cluster.local -U qoffice; do
+                echo "Waiting for database..."
+                sleep 2
+              done
+              echo "Database is ready!"
       containers:
         - name: qai
           image: ghcr.io/fueledbycoffee/qoffice-qai:preprod-latest
           ports: [ { containerPort: 8080 } ]
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
           env:
             - name: S3_ENDPOINT
               value: http://minio.data.svc.cluster.local:9000

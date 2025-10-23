@@ -9,6 +9,18 @@ spec:
   template:
     metadata: { labels: { app: gateway } }
     spec:
+      initContainers:
+        - name: wait-for-db
+          image: postgres:16-alpine
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h postgres.infra.svc.cluster.local -U qoffice; do
+                echo "Waiting for database..."
+                sleep 2
+              done
+              echo "Database is ready!"
       containers:
         - name: gateway
           image: ghcr.io/fueledbycoffee/qoffice-gateway:preprod-latest
@@ -101,3 +113,9 @@ spec:
             httpGet: { path: /health, port: 8081 }
             initialDelaySeconds: 10
             periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet: { path: /health, port: 8081 }
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
