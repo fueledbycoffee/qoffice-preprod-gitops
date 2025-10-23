@@ -9,41 +9,86 @@ spec:
     spec:
       containers:
         - name: admin-api
-          image: ghcr.io/fueledbycoffee/qoffice-admin-api:preprod-fixed
-          ports: [ { containerPort: 8080 } ]
+          image: ghcr.io/fueledbycoffee/qoffice-admin-api
+          ports: [ { containerPort: 8085 } ]
           env:
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: admin-api-secrets
-                  key: DATABASE_URL
+            - name: SERVER_ADDRESS
+              value: ":8085"
+            - name: DB_HOST
+              value: postgres.infra.svc.cluster.local
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: qoffice
+            - name: DB_NAME
+              value: qoffice_admin
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: admin-api-secrets
                   key: DB_PASSWORD
+            - name: DB_SSLMODE
+              value: require
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: admin-api-secrets
                   key: JWT_SECRET
-            - name: KEYCLOAK_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: admin-api-secrets
-                  key: KEYCLOAK_CLIENT_SECRET
-            - name: KEYCLOAK_URL
-              value: http://keycloak.auth.svc.cluster.local:8080
-            - name: KEYCLOAK_REALM
-              value: qoffice-preprod
-            - name: KEYCLOAK_ADMIN_USER
-              value: admin
-            - name: KEYCLOAK_ADMIN_PASS
-              value: Q3CMHMN91D3xrgoCNIip9J3SVOJZyehcUXv5UNGtrk8=
             - name: REDIS_ADDRESS
               value: redis.infra.svc.cluster.local:6379
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: redis-password
+                  name: admin-api-secrets
                   key: REDIS_PASSWORD
+            - name: REDIS_DB
+              value: "0"
+            - name: KEYCLOAK_URL
+              value: http://keycloak.auth.svc.cluster.local:8080
+            - name: KEYCLOAK_REALM
+              value: qoffice-preprod
+            - name: KEYCLOAK_CLIENT_ID
+              value: admin-api
+            - name: KEYCLOAK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: admin-api-secrets
+                  key: KEYCLOAK_CLIENT_SECRET
+            - name: KEYCLOAK_ADMIN_USER
+              value: admin
+            - name: KEYCLOAK_ADMIN_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: admin-api-secrets
+                  key: KEYCLOAK_ADMIN_PASS
+            - name: GATEWAY_URL
+              value: http://gateway.platform.svc.cluster.local:8081
+            - name: BILLING_URL
+              value: http://billing.platform.svc.cluster.local:8080
+            - name: PROVISIONER_URL
+              value: http://provisioner.platform.svc.cluster.local:8081
+            - name: RATE_LIMIT_RPM
+              value: "100"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8085
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8085
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

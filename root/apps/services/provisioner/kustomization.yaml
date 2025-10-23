@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
 images:
   - name: ghcr.io/fueledbycoffee/qoffice-provisioner
-    newTag: preprod-latest
+    newTag: preprod-473046573ebb339d3fbbad50da01dc1d376c16d6
