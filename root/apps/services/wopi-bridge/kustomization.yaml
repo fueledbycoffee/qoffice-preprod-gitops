@@ -5,5 +5,5 @@ resources:
   - service.yaml
   - ingress.yaml
 images:
-  - name: ghcr.io/fueledbycoffee/qoffice-wopi-bridge
+  - name: rg.fr-par.scw.cloud/pandormedia/qoffice-wopi-bridge
     newTag: preprod-latest

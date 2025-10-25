@@ -5,5 +5,5 @@ resources:
   - service.yaml
   - ingress.yaml
 images:
-  - name: ghcr.io/fueledbycoffee/qoffice-qaccount
+  - name: rg.fr-par.scw.cloud/pandormedia/qoffice-qaccount
     newTag: preprod-latest

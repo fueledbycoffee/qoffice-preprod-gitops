@@ -5,5 +5,5 @@ resources:
   - service.yaml
   - ingress.yaml
 images:
-  - name: ghcr.io/fueledbycoffee/qoffice-provisioner
+  - name: rg.fr-par.scw.cloud/pandormedia/qoffice-provisioner
     newTag: preprod-473046573ebb339d3fbbad50da01dc1d376c16d6
