@@ -81,4 +81,4 @@ spec:
                   name: keycloak-admin-secret
                   key: KEYCLOAK_CLIENT_SECRET
             - name: QMAIL_DOMAINS
-              value: preprod.qoffice.cloud
+              value: pandor.cloud,qoffice.cloud
