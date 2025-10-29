@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qaccount
-          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qaccount:preprod-b895bc4e59d47893ae2ba78adf325c5962fa8ddf
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qaccount:preprod-324bc1b8a4996fadf05e092188717a3999c6c7e0
           imagePullPolicy: Always
           ports: [ { containerPort: 80 } ]
           volumeMounts:
