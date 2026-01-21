@@ -39,7 +39,7 @@ spec:
             timeoutSeconds: 3
           env:
             - name: S3_ENDPOINT
-              value: http://minio.data.svc.cluster.local:9000
+              value: minio.data.svc.cluster.local:9000
             - name: S3_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
@@ -55,6 +55,11 @@ spec:
                 secretKeyRef:
                   name: qmail-secrets
                   key: DATABASE_URL
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: redis-conn
+                  key: url
             - name: KEYCLOAK_BASE_URL
               value: http://keycloak.auth.svc.cluster.local:8080
             - name: KEYCLOAK_REALM
