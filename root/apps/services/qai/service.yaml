@@ -3,5 +3,5 @@ kind: Service
 metadata: { name: qai, namespace: platform }
 spec:
   selector: { app: qai }
-  ports: [ { port: 8080, targetPort: 8080 } ]
+  ports: [ { port: 8180, targetPort: 8180 } ]
   type: ClusterIP
