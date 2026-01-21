@@ -57,6 +57,7 @@
   - [ ] qoffice-provisioner (confidential)
   - [ ] qoffice-shell (public)
 - [ ] Test users present with `tenant_id` attribute
+- [ ] User profile allows unmanaged attributes (tenant_id, tenant_name) and preserves first/last name
 
 ### 1.4 MinIO (infra-minio)
 - [ ] Pod Running and Ready
@@ -89,6 +90,7 @@
   - [ ] gateway-secrets
   - [ ] redis-conn
   - [ ] db-secret
+- [ ] qmail-secrets contains `DATABASE_URL`, `OIDC_CLIENT_SECRET`, `SERVICE_TOKEN`
 - [ ] Secret data matches infrastructure credentials
 
 ## 3. Platform Services (11 Applications)
@@ -138,6 +140,7 @@ For each:
 - [ ] Deployment exists
 - [ ] Ingress configured (if applicable)
 - [ ] Basic UI loads or returns expected "not yet implemented" status
+- [ ] Web deployments use `qoffice-*-web` images (no shared service image tags)
 
 ## 5. ArgoCD Health
 

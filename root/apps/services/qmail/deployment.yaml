@@ -66,6 +66,11 @@ spec:
                 secretKeyRef:
                   name: qmail-secrets
                   key: OIDC_CLIENT_SECRET
+            - name: SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: qmail-secrets
+                  key: SERVICE_TOKEN
             - name: ENVIRONMENT
               value: "production"
             - name: CORS_ORIGINS
