@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: revenue-console
-          image: ghcr.io/fueledbycoffee/qoffice-revenue-console:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-revenue-console:preprod-latest
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache

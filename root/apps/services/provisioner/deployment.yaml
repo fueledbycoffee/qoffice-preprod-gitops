@@ -21,7 +21,7 @@ spec:
               echo "Database is ready!"
       containers:
         - name: provisioner
-          image: rg.fr-par.scw.cloud/pandormedia/qoffice-provisioner:preprod-08ec3c0b7388c833cf342e400cd53fde0d47a35a
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-provisioner:preprod-latest
           ports: [ { containerPort: 8080 } ]
           readinessProbe:
             httpGet:

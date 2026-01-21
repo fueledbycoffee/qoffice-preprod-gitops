@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qchat
-          image: ghcr.io/fueledbycoffee/qoffice-qchat:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qchat:preprod-latest
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache

@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qcalendar-qcontacts
-          image: ghcr.io/fueledbycoffee/qoffice-qcalendar-qcontacts:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qcalendar-qcontacts:preprod-latest
           ports: [ { containerPort: 8080 } ]
           env:
             - name: DATABASE_URL

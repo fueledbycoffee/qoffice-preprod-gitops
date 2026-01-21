@@ -21,7 +21,7 @@ spec:
               echo "Database is ready!"
       containers:
         - name: qmail
-          image: ghcr.io/fueledbycoffee/qoffice-qmail:preprod-fixed
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail:preprod-latest
           ports: [ { containerPort: 8080 } ]
           readinessProbe:
             httpGet:
@@ -69,4 +69,4 @@ spec:
             - name: ENVIRONMENT
               value: "production"
             - name: CORS_ORIGINS
-              value: "https://mail.preprod.qoffice.cloud,https://shell.preprod.qoffice.cloud,https://preprod.qoffice.cloud"
+              value: "https://mail.preprod.qoffice.cloud,https://qmail.preprod.qoffice.cloud,https://shell.preprod.qoffice.cloud,https://preprod.qoffice.cloud"

@@ -21,7 +21,7 @@ spec:
               echo "Database is ready!"
       containers:
         - name: qai
-          image: ghcr.io/fueledbycoffee/qoffice-qai:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qai:preprod-latest
           ports: [ { containerPort: 8180 } ]
           readinessProbe:
             httpGet:

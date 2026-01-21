@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qadmin
-          image: ghcr.io/fueledbycoffee/qoffice-qadmin:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qadmin:preprod-latest
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache

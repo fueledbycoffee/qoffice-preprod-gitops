@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qdrive
-          image: ghcr.io/fueledbycoffee/qoffice-qdrive:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qdrive:preprod-latest
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache

@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qmeet
-          image: ghcr.io/fueledbycoffee/qoffice-qmeet:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmeet-web:preprod-latest
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache

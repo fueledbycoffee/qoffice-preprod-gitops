@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qslides
-          image: ghcr.io/fueledbycoffee/qoffice-qslides:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qslides:preprod-latest
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache

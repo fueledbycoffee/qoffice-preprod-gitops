@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qai
-          image: ghcr.io/fueledbycoffee/qoffice-qai:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qai-web:preprod-latest
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache

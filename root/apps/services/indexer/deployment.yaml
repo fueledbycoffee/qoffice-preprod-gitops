@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: indexer
-          image: ghcr.io/fueledbycoffee/qoffice-indexer:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-indexer:preprod-latest
           ports: [ { containerPort: 8080 } ]
           env:
             - name: DATABASE_URL

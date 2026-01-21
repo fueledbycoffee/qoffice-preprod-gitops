@@ -8,10 +8,10 @@ metadata:
 spec:
   ingressClassName: traefik
   tls:
-    - hosts: [ "qmail.preprod.qoffice.cloud" ]
+    - hosts: [ "qmail-api.preprod.qoffice.cloud" ]
       secretName: qmail-tls
   rules:
-    - host: qmail.preprod.qoffice.cloud
+    - host: qmail-api.preprod.qoffice.cloud
       http:
         paths:
           - path: /

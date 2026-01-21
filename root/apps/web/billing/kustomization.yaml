@@ -5,5 +5,5 @@ resources:
   - service.yaml
   - ingress.yaml
 images:
-  - name: rg.fr-par.scw.cloud/pandormedia/qoffice-billing
+  - name: rg.fr-par.scw.cloud/pandormedia/qoffice-billing-web
     newTag: preprod-latest

@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qmeet
-          image: ghcr.io/fueledbycoffee/qoffice-qmeet:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmeet:preprod-latest
           ports: [ { containerPort: 8080 } ]
           env:
             - name: QMEET_JITSI_APP_SECRET
