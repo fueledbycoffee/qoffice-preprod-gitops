@@ -60,6 +60,8 @@ spec:
                   key: S3_SECRET_KEY
             - name: S3_REGION
               value: fr-par
+            - name: S3_SSE
+              value: none
             - name: MEILISEARCH_URL
               value: http://meilisearch.search.svc.cluster.local:7700
             - name: MEILI_KEY
