@@ -39,7 +39,7 @@ spec:
             timeoutSeconds: 3
           env:
             - name: S3_ENDPOINT
-              value: minio.data.svc.cluster.local:9000
+              value: https://s3.fr-par.scw.cloud
             - name: S3_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
@@ -50,6 +50,8 @@ spec:
                 secretKeyRef:
                   name: s3-credentials
                   key: S3_SECRET_KEY
+            - name: S3_REGION
+              value: fr-par
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
