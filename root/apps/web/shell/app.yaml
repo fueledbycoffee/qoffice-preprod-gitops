@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/fueledbycoffee/qoffice-preprod-gitops.git
     targetRevision: main
-    path: apps/web/shell
+    path: root/apps/web/shell
     kustomize: {}
   destination:
     server: https://kubernetes.default.svc
