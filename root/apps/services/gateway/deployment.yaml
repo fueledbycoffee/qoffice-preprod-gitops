@@ -82,7 +82,7 @@ spec:
                   name: keycloak-admin-secret
                   key: KEYCLOAK_CLIENT_SECRET
             - name: QMAIL_DOMAINS
-              value: preprod.qoffice.cloud
+              value: qoffice.cloud,preprod.qoffice.cloud
             - name: QAI_SERVICE_URL
               value: http://qai.platform.svc.cluster.local:8180/v1
             - name: QCALENDAR_SERVICE_URL
