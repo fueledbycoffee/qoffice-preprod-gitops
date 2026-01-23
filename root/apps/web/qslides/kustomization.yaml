@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
 images:
   - name: rg.fr-par.scw.cloud/pandormedia/qoffice-qslides
-    newTag: preprod-5a82c74b4943c36d2e6f43367ba326971909187b
+    newTag: preprod-9b3530a578ecfdb172027da4763421c17a50b6c2
