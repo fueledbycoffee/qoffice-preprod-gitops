@@ -51,8 +51,8 @@ spec:
                   name: wopi-bridge-secrets
                   key: DATABASE_URL
             - name: KEYCLOAK_URL
-              value: http://keycloak.auth.svc.cluster.local:8080
+              value: https://keycloak.preprod.qoffice.cloud
             - name: KEYCLOAK_REALM
               value: qoffice-preprod
             - name: OIDC_ISSUER_URL
-              value: http://keycloak.auth.svc.cluster.local:8080/realms/qoffice-preprod
+              value: https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod
