@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: collabora
-          image: collabora/code:23.05.10.2.1
+          image: collabora/code:23.05.10.1.1
           ports:
             - containerPort: 9980
           env:
