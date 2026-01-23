@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
 images:
   - name: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail-web
-    newTag: preprod-67b6053abc4fff88f00871b620b65374df1904a4
+    newTag: preprod-cca38a0034d875400b98e87d920545656afb9bcb
