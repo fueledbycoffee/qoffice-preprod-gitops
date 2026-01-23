@@ -16,4 +16,4 @@ spec:
         paths:
           - path: /
             pathType: Prefix
-            backend: { service: { name: wopi-bridge, port: { number: 8080 } } }
+            backend: { service: { name: wopi-bridge, port: { number: 8085 } } }

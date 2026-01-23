@@ -10,8 +10,10 @@ spec:
       containers:
         - name: wopi-bridge
           image: rg.fr-par.scw.cloud/pandormedia/qoffice-wopi-bridge:preprod-latest
-          ports: [ { containerPort: 8080 } ]
+          ports: [ { containerPort: 8085 } ]
           env:
+            - name: PORT
+              value: "8085"
             - name: S3_ENDPOINT
               value: https://s3.fr-par.scw.cloud
             - name: S3_ACCESS_KEY

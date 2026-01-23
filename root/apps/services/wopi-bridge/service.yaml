@@ -3,5 +3,5 @@ kind: Service
 metadata: { name: wopi-bridge, namespace: platform }
 spec:
   selector: { app: wopi-bridge }
-  ports: [ { port: 8080, targetPort: 8080 } ]
+  ports: [ { port: 8085, targetPort: 8085 } ]
   type: ClusterIP
