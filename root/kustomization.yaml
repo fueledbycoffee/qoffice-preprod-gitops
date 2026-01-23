@@ -19,6 +19,7 @@ resources:
   - apps/services/qmail/app.yaml
   - apps/services/qai/app.yaml
   - apps/services/qmeet/app.yaml
+  - apps/services/collabora/app.yaml
   - apps/services/wopi-bridge/app.yaml
   - apps/services/admin-api/app.yaml
   - apps/services/billing/app.yaml

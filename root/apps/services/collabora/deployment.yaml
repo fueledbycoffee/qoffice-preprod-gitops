@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collabora
+  namespace: platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collabora
+  template:
+    metadata:
+      labels:
+        app: collabora
+    spec:
+      containers:
+        - name: collabora
+          image: collabora/code:23.05.10.2.1
+          ports:
+            - containerPort: 9980
+          env:
+            - name: DONT_GEN_SSL_CERT
+              value: "true"
+            - name: domain
+              value: "wopi-bridge\\.preprod\\.qoffice\\.cloud"
+            - name: extra_params
+              value: "--o:ssl.enable=false --o:ssl.termination=true --o:logging.level=warning --o:security.macros.disable=true --o:net.post_allow.host[0]=wopi-bridge.preprod.qoffice.cloud"
+            - name: WOPI_SRC_URL
+              value: https://wopi-bridge.preprod.qoffice.cloud
+            - name: aliasgroup1
+              value: https://wopi-bridge.preprod.qoffice.cloud
+          readinessProbe:
+            httpGet:
+              path: /hosting/discovery
+              port: 9980
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /hosting/discovery
+              port: 9980
+            initialDelaySeconds: 20
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 6
+          securityContext:
+            capabilities:
+              add: ["MKNOD"]
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
