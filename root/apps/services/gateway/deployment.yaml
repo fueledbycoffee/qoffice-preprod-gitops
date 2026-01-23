@@ -61,7 +61,21 @@ spec:
             - name: S3_REGION
               value: fr-par
             - name: S3_SSE
-              value: none
+              value: SSE-C
+            - name: S3_SSE_C_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: S3_SSE_C_KEY
+            - name: S3_SSE_C_KEY_MD5
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: S3_SSE_C_KEY_MD5
+            - name: S3_SSE_C_SCOPE
+              value: user
+            - name: STORAGE_URL_MODE
+              value: gateway
             - name: MEILISEARCH_URL
               value: http://meilisearch.search.svc.cluster.local:7700
             - name: MEILI_KEY
