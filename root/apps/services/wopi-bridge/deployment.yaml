@@ -60,6 +60,10 @@ spec:
               value: https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod
             - name: OIDC_CLIENT_ID
               value: shell
+            - name: QMAIL_DOMAINS
+              value: qoffice.cloud,preprod.qoffice.cloud
+            - name: REQUIRE_EMAIL_VERIFIED
+              value: "false"
             - name: OFFICE_APPS_ORIGINS
               value: https://qdocs.preprod.qoffice.cloud,https://qsheets.preprod.qoffice.cloud,https://qslides.preprod.qoffice.cloud
             - name: COLLABORA_URL
