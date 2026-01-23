@@ -67,6 +67,13 @@ spec:
               value: http://billing.platform.svc.cluster.local:8080
             - name: PROVISIONER_URL
               value: http://provisioner.platform.svc.cluster.local:8081
+            - name: QMAIL_SERVICE_URL
+              value: http://qmail.platform.svc.cluster.local:8080
+            - name: QMAIL_SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: admin-api-secrets
+                  key: QMAIL_SERVICE_TOKEN
             - name: RATE_LIMIT_RPM
               value: "100"
           readinessProbe:

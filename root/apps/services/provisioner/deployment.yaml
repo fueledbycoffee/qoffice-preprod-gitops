@@ -82,5 +82,12 @@ spec:
                 secretKeyRef:
                   name: keycloak-admin-secret
                   key: KEYCLOAK_CLIENT_SECRET
+            - name: QMAIL_SERVICE_URL
+              value: http://qmail.platform.svc.cluster.local:8080
+            - name: QMAIL_SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: qmail-secrets
+                  key: SERVICE_TOKEN
             - name: QMAIL_DOMAINS
-              value: pandor.cloud,qoffice.cloud
+              value: qoffice.cloud
