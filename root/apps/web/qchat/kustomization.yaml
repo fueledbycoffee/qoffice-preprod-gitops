@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
 images:
   - name: rg.fr-par.scw.cloud/pandormedia/qoffice-qchat
-    newTag: preprod-9b3530a5e0f1ad0226ec96294f2dec0176b8c89c
+    newTag: preprod-cca38a0034d875400b98e87d920545656afb9bcb
