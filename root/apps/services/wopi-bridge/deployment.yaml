@@ -58,6 +58,8 @@ spec:
               value: qoffice-preprod
             - name: OIDC_ISSUER_URL
               value: https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod
+            - name: OIDC_CLIENT_ID
+              value: shell
             - name: OFFICE_APPS_ORIGINS
               value: https://qdocs.preprod.qoffice.cloud,https://qsheets.preprod.qoffice.cloud,https://qslides.preprod.qoffice.cloud
             - name: COLLABORA_URL
