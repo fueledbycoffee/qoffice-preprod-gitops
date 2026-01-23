@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
 images:
   - name: rg.fr-par.scw.cloud/pandormedia/qoffice-qaccount
-    newTag: preprod-ff854fa0b350f2ba14308d95ed19451eca4a5c4a
+    newTag: preprod-9b3530a5e0f1ad0226ec96294f2dec0176b8c89c
