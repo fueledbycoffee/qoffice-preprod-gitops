@@ -24,7 +24,7 @@ spec:
             - name: domain
               value: "wopi-bridge\\.preprod\\.qoffice\\.cloud"
             - name: extra_params
-              value: "--o:ssl.enable=false --o:ssl.termination=true --o:logging.level=warning --o:security.macros.disable=true --o:net.post_allow.host[0]=wopi-bridge.preprod.qoffice.cloud --o:net.frame_ancestors=https://qdocs.preprod.qoffice.cloud https://qsheets.preprod.qoffice.cloud https://qslides.preprod.qoffice.cloud https://collabora.preprod.qoffice.cloud https://wopi-bridge.preprod.qoffice.cloud"
+              value: "--o:ssl.enable=false --o:ssl.termination=true --o:logging.level=warning --o:security.macros.disable=true --o:net.post_allow.host[0]=wopi-bridge.preprod.qoffice.cloud --o:net.frame_ancestors=https://qdocs.preprod.qoffice.cloud\\ https://qsheets.preprod.qoffice.cloud\\ https://qslides.preprod.qoffice.cloud\\ https://collabora.preprod.qoffice.cloud\\ https://wopi-bridge.preprod.qoffice.cloud"
             - name: WOPI_SRC_URL
               value: https://wopi-bridge.preprod.qoffice.cloud
             - name: aliasgroup1
