@@ -34,6 +34,10 @@ spec:
                 secretKeyRef:
                   name: admin-api-secrets
                   key: JWT_SECRET
+            - name: JWT_ALGORITHM
+              value: RS256
+            - name: JWKS_URL
+              value: http://keycloak.auth.svc.cluster.local:8080/realms/qoffice-preprod/protocol/openid-connect/certs
             - name: REDIS_ADDRESS
               value: redis.infra.svc.cluster.local:6379
             - name: REDIS_PASSWORD
