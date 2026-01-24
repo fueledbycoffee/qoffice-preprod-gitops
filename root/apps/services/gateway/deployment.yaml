@@ -101,6 +101,8 @@ spec:
                   key: KEYCLOAK_CLIENT_SECRET
             - name: QMAIL_DOMAINS
               value: qoffice.cloud,preprod.qoffice.cloud
+            - name: QMAIL_SERVICE_URL
+              value: http://qmail.platform.svc.cluster.local:8080
             - name: QAI_SERVICE_URL
               value: http://qai.platform.svc.cluster.local:8180/v1
             - name: QCALENDAR_SERVICE_URL
@@ -112,7 +114,7 @@ spec:
             - name: WOPI_BRIDGE_URL
               value: http://wopi-bridge.platform.svc.cluster.local:8085
             - name: GATEWAY_ALLOWED_ORIGINS
-              value: https://shell.preprod.qoffice.cloud,https://qdrive.preprod.qoffice.cloud,https://qdocs.preprod.qoffice.cloud,https://qsheets.preprod.qoffice.cloud,https://qslides.preprod.qoffice.cloud,https://preprod.qoffice.cloud
+              value: https://shell.preprod.qoffice.cloud,https://qdrive.preprod.qoffice.cloud,https://qdocs.preprod.qoffice.cloud,https://qsheets.preprod.qoffice.cloud,https://qslides.preprod.qoffice.cloud,https://qai.preprod.qoffice.cloud,https://preprod.qoffice.cloud
             - name: STRIPE_PUBLISHABLE_KEY
               value: pk_test_mock
             - name: STRIPE_SECRET_KEY
