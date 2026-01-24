@@ -49,6 +49,10 @@ spec:
               value: qoffice-preprod
             - name: KEYCLOAK_CLIENT_ID
               value: admin-api
+            - name: KEYCLOAK_ACTION_CLIENT_ID
+              value: qadmin
+            - name: KEYCLOAK_ACTION_REDIRECT_URI
+              value: https://qadmin.preprod.qoffice.cloud/
             - name: KEYCLOAK_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
