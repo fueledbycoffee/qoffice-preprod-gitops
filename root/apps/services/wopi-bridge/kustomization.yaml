@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
 images:
   - name: rg.fr-par.scw.cloud/pandormedia/qoffice-wopi-bridge
-    newTag: preprod-45656b55
+    newTag: preprod-b094b3d09bf1a68cb070e9516f050f4650a373b3
