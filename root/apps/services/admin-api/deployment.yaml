@@ -80,6 +80,8 @@ spec:
                   key: QMAIL_SERVICE_TOKEN
             - name: RATE_LIMIT_RPM
               value: "100"
+            - name: CORS_ALLOWED_ORIGINS
+              value: "https://qadmin.preprod.qoffice.cloud"
           readinessProbe:
             httpGet:
               path: /health
