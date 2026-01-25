@@ -63,6 +63,10 @@ spec:
               value: "production"
             - name: QAI_LOG_LEVEL
               value: "info"
+            - name: QAI_KEYCLOAK_ISSUER
+              value: "https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod"
+            - name: QAI_KEYCLOAK_JWKS_URL
+              value: "https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod/protocol/openid-connect/certs"
             - name: QAI_OPENAI_KEY
               value: "configured-via-database"
             - name: QAI_REDIS_ADDR
