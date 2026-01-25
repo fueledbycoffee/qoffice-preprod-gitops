@@ -30,6 +30,24 @@ spec:
           volumeMounts:
             - name: collabora-dark-icons
               mountPath: /work/dark
+        - name: collabora-qoffice-branding
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260125221932
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+              mkdir -p /work/qoffice /work/images/branding
+              cp -R /usr/share/coolwsd/browser/dist/qoffice/. /work/qoffice/
+              cp /usr/share/coolwsd/browser/dist/branding.css /work/branding.css
+              cp /usr/share/coolwsd/browser/dist/branding-desktop.css /work/branding-desktop.css
+              cp /usr/share/coolwsd/browser/dist/branding-tablet.css /work/branding-tablet.css
+              cp /usr/share/coolwsd/browser/dist/branding-mobile.css /work/branding-mobile.css
+              cp /usr/share/coolwsd/browser/dist/branding.js /work/branding.js
+              cp -R /usr/share/coolwsd/browser/dist/images/branding/. /work/images/branding/
+          volumeMounts:
+            - name: collabora-branding
+              mountPath: /work
       containers:
         - name: collabora
           image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260125221932
@@ -75,6 +93,29 @@ spec:
           volumeMounts:
             - name: collabora-dark-icons
               mountPath: /usr/share/coolwsd/browser/dist/images/dark
+            - name: collabora-branding
+              mountPath: /usr/share/coolwsd/browser/dist/qoffice
+              subPath: qoffice
+            - name: collabora-branding
+              mountPath: /usr/share/coolwsd/browser/dist/branding.css
+              subPath: branding.css
+            - name: collabora-branding
+              mountPath: /usr/share/coolwsd/browser/dist/branding-desktop.css
+              subPath: branding-desktop.css
+            - name: collabora-branding
+              mountPath: /usr/share/coolwsd/browser/dist/branding-tablet.css
+              subPath: branding-tablet.css
+            - name: collabora-branding
+              mountPath: /usr/share/coolwsd/browser/dist/branding-mobile.css
+              subPath: branding-mobile.css
+            - name: collabora-branding
+              mountPath: /usr/share/coolwsd/browser/dist/branding.js
+              subPath: branding.js
+            - name: collabora-branding
+              mountPath: /usr/share/coolwsd/browser/dist/images/branding
+              subPath: images/branding
       volumes:
         - name: collabora-dark-icons
+          emptyDir: {}
+        - name: collabora-branding
           emptyDir: {}
