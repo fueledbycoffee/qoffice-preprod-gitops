@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: collabora
+      annotations:
+        qoffice.io/restarted-at: "2026-01-25T22:36:00Z"
     spec:
       initContainers:
         - name: collabora-dark-icons
