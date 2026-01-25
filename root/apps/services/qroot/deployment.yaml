@@ -7,6 +7,8 @@ spec:
   template:
     metadata: { labels: { app: qroot } }
     spec:
+      imagePullSecrets:
+        - name: scw-registry
       containers:
         - name: qroot
           image: rg.fr-par.scw.cloud/pandormedia/qoffice-qroot:preprod-latest
