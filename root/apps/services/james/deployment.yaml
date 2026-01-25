@@ -1,0 +1,167 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: james, namespace: platform }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: james } }
+  template:
+    metadata: { labels: { app: james } }
+    spec:
+      initContainers:
+        - name: james-config-init
+          image: apache/james:memory-3.8.2
+          command:
+            - sh
+            - -c
+            - |
+              set -e
+              mkdir -p /config
+              cp -R /root/conf/* /config/
+              if [ -f /config/domainlist.xml ] && [ -n "${JAMES_DEFAULT_DOMAIN:-}" ]; then
+                sed -i "s#<defaultDomain>.*</defaultDomain>#<defaultDomain>${JAMES_DEFAULT_DOMAIN}</defaultDomain>#g" /config/domainlist.xml
+              fi
+              if [ -f /config/jmap.properties ]; then
+                if grep -q '^port=' /config/jmap.properties; then
+                  sed -i 's/^port=.*/port=80/' /config/jmap.properties
+                else
+                  printf '\nport=80\n' >> /config/jmap.properties
+                fi
+                if grep -q '^host=' /config/jmap.properties; then
+                  sed -i 's/^host=.*/host=0.0.0.0/' /config/jmap.properties
+                else
+                  printf 'host=0.0.0.0\n' >> /config/jmap.properties
+                fi
+                if grep -q '^authentication.strategy.rfc8621=' /config/jmap.properties; then
+                  sed -i 's/^authentication.strategy.rfc8621=.*/authentication.strategy.rfc8621=BasicAuthenticationStrategy/' /config/jmap.properties
+                else
+                  printf 'authentication.strategy.rfc8621=BasicAuthenticationStrategy\n' >> /config/jmap.properties
+                fi
+                if grep -q '^authentication.strategy.draft=' /config/jmap.properties; then
+                  sed -i 's/^authentication.strategy.draft=.*/authentication.strategy.draft=BasicAuthenticationStrategy/' /config/jmap.properties
+                else
+                  printf 'authentication.strategy.draft=BasicAuthenticationStrategy\n' >> /config/jmap.properties
+                fi
+                if grep -q '^jmap.version.default=' /config/jmap.properties; then
+                  sed -i 's/^jmap.version.default=.*/jmap.version.default=rfc-8621/' /config/jmap.properties
+                else
+                  printf 'jmap.version.default=rfc-8621\n' >> /config/jmap.properties
+                fi
+              fi
+          env:
+            - name: JAMES_DEFAULT_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_DEFAULT_DOMAIN
+          volumeMounts:
+            - name: james-config
+              mountPath: /config
+      containers:
+        - name: james
+          image: apache/james:memory-3.8.2
+          ports:
+            - { name: jmap, containerPort: 80 }
+            - { name: admin, containerPort: 8000 }
+          env:
+            - name: JAVA_OPTIONS
+              value: "-Xmx2g -Xms1g -XX:+UseG1GC -XX:+UseContainerSupport"
+            - name: JAMES_MAILBOX_ENABLE_AUTOCREATE_MAILBOX
+              value: "true"
+            - name: JAMES_MAILBOX_ENABLE_TRASH
+              value: "true"
+            - name: JAMES_MAILBOX_ENABLE_SENT
+              value: "true"
+            - name: JAMES_MAILBOX_ENABLE_DRAFTS
+              value: "true"
+            - name: JAMES_SERVER_ENABLE_JMAP
+              value: "true"
+            - name: JAMES_JMAP_ENABLED
+              value: "true"
+            - name: JAMES_JMAP_CORE_PORT
+              value: "8080"
+            - name: JAMES_JMAP_CORE_HOST
+              value: "0.0.0.0"
+            - name: JAMES_MAILINGLISTS_ENABLED
+              value: "false"
+            - name: JAMES_WEBADMIN_ENABLED
+              value: "true"
+            - name: JAMES_WEBADMIN_PORT
+              value: "8000"
+            - name: JAMES_WEBADMIN_HOST
+              value: "0.0.0.0"
+            - name: JAMES_SERVER_HOSTNAME
+              value: qmail.preprod.qoffice.cloud
+            - name: JAMES_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_DEFAULT_DOMAIN
+            - name: JAMES_DEFAULT_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_DEFAULT_DOMAIN
+            - name: JAMES_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_USERNAME
+            - name: JAMES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_PASSWORD
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - |
+                    set -e
+                    for i in $(seq 1 60); do
+                      if curl -sf http://localhost:8000/healthcheck >/dev/null; then
+                        break
+                      fi
+                      sleep 2
+                    done
+                    if [ -n "${JAMES_DEFAULT_DOMAIN:-}" ]; then
+                      curl -sf -X PUT "http://localhost:8000/domains/${JAMES_DEFAULT_DOMAIN}" >/dev/null || true
+                    fi
+                    if [ -n "${JAMES_USERNAME:-}" ] && [ -n "${JAMES_PASSWORD:-}" ]; then
+                      curl -sf -X PUT "http://localhost:8000/users/${JAMES_USERNAME}" \
+                        -H "Content-Type: application/json" \
+                        -d "{\"password\":\"${JAMES_PASSWORD}\"}" >/dev/null || true
+                    fi
+          volumeMounts:
+            - name: james-config
+              mountPath: /root/conf
+            - name: james-logs
+              mountPath: /logs
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "1500m"
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: admin
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: admin
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            timeoutSeconds: 10
+      volumes:
+        - name: james-config
+          emptyDir: {}
+        - name: james-logs
+          persistentVolumeClaim:
+            claimName: james-logs-pvc

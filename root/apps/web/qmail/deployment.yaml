@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: qmail
-          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail-web:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail-web:preprod-600d6ad56bcbfa2af9ec7d371cc9b6432696dc21
           ports: [ { containerPort: 80 } ]
           volumeMounts:
             - name: nginx-cache
