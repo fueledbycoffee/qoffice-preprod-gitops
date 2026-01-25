@@ -13,6 +13,21 @@ spec:
       labels:
         app: collabora
     spec:
+      initContainers:
+        - name: collabora-dark-icons
+          image: collabora/code:23.05.10.1.1
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+              mkdir -p /work/dark
+              cp -a /usr/share/coolwsd/browser/dist/images/dark/. /work/dark/
+              cp /usr/share/coolwsd/browser/dist/images/lc_scrolltoprevious.svg /work/dark/
+              cp /usr/share/coolwsd/browser/dist/images/lc_scrolltonext.svg /work/dark/
+          volumeMounts:
+            - name: collabora-dark-icons
+              mountPath: /work/dark
       containers:
         - name: collabora
           image: collabora/code:23.05.10.1.1
@@ -55,3 +70,9 @@ spec:
             limits:
               cpu: "2"
               memory: "4Gi"
+          volumeMounts:
+            - name: collabora-dark-icons
+              mountPath: /usr/share/coolwsd/browser/dist/images/dark
+      volumes:
+        - name: collabora-dark-icons
+          emptyDir: {}
