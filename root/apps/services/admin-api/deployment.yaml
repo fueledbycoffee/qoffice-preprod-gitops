@@ -53,6 +53,8 @@ spec:
               value: qoffice-preprod
             - name: KEYCLOAK_CLIENT_ID
               value: admin-api
+            - name: KEYCLOAK_TOKEN_GRANT
+              value: client_credentials
             - name: KEYCLOAK_ACTION_CLIENT_ID
               value: qadmin
             - name: KEYCLOAK_ACTION_REDIRECT_URI
