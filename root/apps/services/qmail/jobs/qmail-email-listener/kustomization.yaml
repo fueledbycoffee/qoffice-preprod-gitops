@@ -4,4 +4,4 @@ resources:
   - deployment.yaml
 images:
   - name: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail-email-listener
-    newTag: preprod-latest
+    newTag: preprod-300b02069591f7a263e05fcd954eb27cc342d750
