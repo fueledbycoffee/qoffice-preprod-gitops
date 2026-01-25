@@ -40,14 +40,14 @@ spec:
               cpu: "1000m"
           livenessProbe:
             exec:
-              command: ["/usr/local/bin/clamd", "--ping"]
+              command: ["/usr/sbin/clamd", "--ping"]
             initialDelaySeconds: 120
             periodSeconds: 30
             timeoutSeconds: 10
             failureThreshold: 3
           readinessProbe:
             exec:
-              command: ["/usr/local/bin/clamd", "--ping"]
+              command: ["/usr/sbin/clamd", "--ping"]
             initialDelaySeconds: 120
             periodSeconds: 10
             timeoutSeconds: 5
