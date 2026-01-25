@@ -22,7 +22,7 @@ spec:
             - |
               set -e
               mkdir -p /work/dark
-              cp -a /usr/share/coolwsd/browser/dist/images/dark/. /work/dark/
+              cp -R /usr/share/coolwsd/browser/dist/images/dark/. /work/dark/
               cp /usr/share/coolwsd/browser/dist/images/lc_scrolltoprevious.svg /work/dark/
               cp /usr/share/coolwsd/browser/dist/images/lc_scrolltonext.svg /work/dark/
           volumeMounts:
