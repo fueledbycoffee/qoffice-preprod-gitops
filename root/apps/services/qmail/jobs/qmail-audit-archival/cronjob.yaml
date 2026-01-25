@@ -1,0 +1,114 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata: { name: qmail-audit-archival, namespace: platform }
+spec:
+  schedule: "0 3 1 * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 7200
+      backoffLimit: 2
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: qmail-audit-archival
+              image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail-audit-archival:preprod-latest
+              env:
+                - name: ENVIRONMENT
+                  value: "production"
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: qmail-secrets
+                      key: DATABASE_URL
+                - name: REDIS_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: redis-conn
+                      key: url
+                - name: KEYCLOAK_BASE_URL
+                  value: http://keycloak.auth.svc.cluster.local:8080
+                - name: KEYCLOAK_REALM
+                  value: qoffice-preprod
+                - name: OIDC_ISSUER
+                  value: https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod
+                - name: KEYCLOAK_CLIENT_ID
+                  value: qmail-app
+                - name: OIDC_CLIENT_ID
+                  value: qmail-service
+                - name: OIDC_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: qmail-secrets
+                      key: OIDC_CLIENT_SECRET
+                - name: SERVICE_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: qmail-secrets
+                      key: SERVICE_TOKEN
+                - name: S3_ENDPOINT
+                  value: https://s3.fr-par.scw.cloud
+                - name: S3_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-credentials
+                      key: S3_ACCESS_KEY
+                - name: S3_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-credentials
+                      key: S3_SECRET_KEY
+                - name: S3_REGION
+                  value: fr-par
+                - name: S3_SSE
+                  value: SSE-C
+                - name: S3_SSE_C_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-credentials
+                      key: S3_SSE_C_KEY
+                - name: S3_SSE_C_KEY_MD5
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-credentials
+                      key: S3_SSE_C_KEY_MD5
+                - name: S3_SSE_C_SCOPE
+                  value: user
+                - name: JAMES_JMAP_REQUIRED
+                  value: "false"
+                - name: JAMES_JMAP_URL
+                  value: http://james.platform.svc.cluster.local:80/jmap
+                - name: JAMES_WEBADMIN_URL
+                  value: http://james.platform.svc.cluster.local:8000
+                - name: JAMES_WEBADMIN_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: james-secrets
+                      key: JAMES_WEBADMIN_USERNAME
+                - name: JAMES_WEBADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: james-secrets
+                      key: JAMES_WEBADMIN_PASSWORD
+                - name: JAMES_DEFAULT_DOMAIN
+                  valueFrom:
+                    secretKeyRef:
+                      name: james-secrets
+                      key: JAMES_DEFAULT_DOMAIN
+                - name: JAMES_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: james-secrets
+                      key: JAMES_USERNAME
+                - name: JAMES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: james-secrets
+                      key: JAMES_PASSWORD
+                - name: AUDIT_ARCHIVAL_ENABLED
+                  value: "true"
+                - name: DRY_RUN
+                  value: "false"
