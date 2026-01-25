@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qroot, namespace: web }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qroot } }
+  template:
+    metadata: { labels: { app: qroot } }
+    spec:
+      containers:
+        - name: qroot
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qroot-web:preprod-latest
+          ports: [ { containerPort: 80 } ]
+          volumeMounts:
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+            - name: nginx-run
+              mountPath: /var/run
+      volumes:
+        - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-run
+          emptyDir: {}

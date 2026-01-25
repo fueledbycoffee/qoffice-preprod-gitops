@@ -16,12 +16,14 @@ resources:
   - apps/services/indexer/app.yaml
   - apps/services/notifications/app.yaml
   - apps/services/qcalendar-qcontacts/app.yaml
+  - apps/services/james/app.yaml
   - apps/services/qmail/app.yaml
   - apps/services/qai/app.yaml
   - apps/services/qmeet/app.yaml
   - apps/services/collabora/app.yaml
   - apps/services/wopi-bridge/app.yaml
   - apps/services/admin-api/app.yaml
+  - apps/services/qroot/app.yaml
   - apps/services/billing/app.yaml
   - apps/web/qaccount/app.yaml
   - apps/web/qdrive/app.yaml
@@ -33,6 +35,7 @@ resources:
   - apps/web/qsheets/app.yaml
   - apps/web/qslides/app.yaml
   - apps/web/qadmin/app.yaml
+  - apps/web/qroot/app.yaml
   - apps/web/admin/app.yaml
   - apps/web/billing/app.yaml
   - apps/web/revenue-console/app.yaml

@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: qroot, namespace: platform }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: qroot } }
+  template:
+    metadata: { labels: { app: qroot } }
+    spec:
+      containers:
+        - name: qroot
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qroot:preprod-latest
+          ports: [ { containerPort: 8093 } ]
+          env:
+            - name: SERVER_ADDRESS
+              value: ":8093"
+            - name: DB_HOST
+              value: postgres.infra.svc.cluster.local
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: qoffice
+            - name: DB_NAME
+              value: qoffice_admin
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: qroot-secrets
+                  key: DB_PASSWORD
+            - name: DB_SSLMODE
+              value: disable
+            - name: JWT_ALGORITHM
+              value: RS256
+            - name: JWKS_URL
+              value: http://keycloak.auth.svc.cluster.local:8080/realms/qoffice-preprod/protocol/openid-connect/certs
+            - name: AUTH_REQUIRED_ROLE
+              value: qlabs-admin
+            - name: AUTH_ADDITIONAL_ROLES
+              value: qroot-service
+            - name: AUTH_ALLOW_SUPER_ADMIN
+              value: "true"
+            - name: CORS_ALLOWED_ORIGINS
+              value: "https://qroot.preprod.qoffice.cloud"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8093
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8093
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

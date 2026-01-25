@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Service
+metadata: { name: qroot, namespace: platform }
+spec:
+  selector: { app: qroot }
+  ports: [ { port: 8093, targetPort: 8093 } ]
+  type: ClusterIP

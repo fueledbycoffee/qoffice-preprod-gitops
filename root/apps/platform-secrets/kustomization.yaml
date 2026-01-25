@@ -12,6 +12,8 @@ resources:
   - notifications-secrets.yaml
   - qai-secrets.yaml
   - qcalendar-qcontacts-secrets.yaml
+  - james-secrets.yaml
   - qmail-secrets.yaml
   - wopi-bridge-secrets.yaml
   - qmeet-secrets.yaml
+  - qroot-secrets.yaml
