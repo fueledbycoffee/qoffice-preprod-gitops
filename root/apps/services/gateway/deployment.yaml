@@ -127,6 +127,11 @@ spec:
                 secretKeyRef:
                   name: gateway-secrets
                   key: STRIPE_WEBHOOK_SECRET
+            - name: STORAGE_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-secrets
+                  key: STORAGE_WEBHOOK_SECRET
             - name: ENVIRONMENT
               value: preprod
           readinessProbe:
