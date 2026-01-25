@@ -57,6 +57,16 @@ spec:
                 secretKeyRef:
                   name: qai-secrets
                   key: QAI_POSTGRES_URL
+            - name: QAI_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: qai-secrets
+                  key: QAI_JWT_SECRET
+            - name: ADMIN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qai-secrets
+                  key: ADMIN_API_KEY
             - name: QAI_SERVER_PORT
               value: "8180"
             - name: QAI_ENVIRONMENT
