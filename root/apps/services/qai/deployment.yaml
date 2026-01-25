@@ -67,6 +67,19 @@ spec:
               value: "https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod"
             - name: QAI_KEYCLOAK_JWKS_URL
               value: "https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod/protocol/openid-connect/certs"
+            - name: QROOT_URL
+              value: "http://qroot.platform.svc.cluster.local:8093"
+            - name: QROOT_CLIENT_ID
+              value: "qai"
+            - name: QROOT_TOKEN_URL
+              value: "http://keycloak.auth.svc.cluster.local:8080/realms/qoffice-preprod/protocol/openid-connect/token"
+            - name: QROOT_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: qai-secrets
+                  key: QROOT_CLIENT_SECRET
+            - name: QROOT_CATALOG_TTL_SECONDS
+              value: "300"
             - name: QAI_OPENAI_KEY
               value: "configured-via-database"
             - name: QAI_REDIS_ADDR

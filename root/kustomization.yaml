@@ -4,6 +4,7 @@ resources:
   - apps/ops/sealed-secrets-app.yaml
   - apps/ops/vault-app.yaml
   - apps/ops/external-secrets-operator-app.yaml
+  - apps/ops/serviceaccounts-app.yaml
   - apps/infra/postgres-app.yaml
   - apps/infra/redis-app.yaml
   - apps/infra/minio-app.yaml
