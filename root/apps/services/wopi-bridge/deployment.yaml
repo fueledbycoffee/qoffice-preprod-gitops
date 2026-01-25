@@ -75,3 +75,5 @@ spec:
               value: https://collabora.preprod.qoffice.cloud
             - name: COLLABORA_ORIGIN
               value: https://collabora.preprod.qoffice.cloud
+            - name: COLLABORA_THEME
+              value: qoffice

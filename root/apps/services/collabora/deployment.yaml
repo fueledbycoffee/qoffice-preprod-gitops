@@ -15,7 +15,7 @@ spec:
     spec:
       initContainers:
         - name: collabora-dark-icons
-          image: collabora/code:23.05.10.1.1
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260125221932
           command:
             - /bin/sh
             - -c
@@ -30,7 +30,7 @@ spec:
               mountPath: /work/dark
       containers:
         - name: collabora
-          image: collabora/code:23.05.10.1.1
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260125221932
           ports:
             - containerPort: 9980
           env:
@@ -39,7 +39,7 @@ spec:
             - name: domain
               value: "wopi-bridge\\.preprod\\.qoffice\\.cloud"
             - name: extra_params
-              value: "--o:ssl.enable=false --o:ssl.termination=true --o:logging.level=warning --o:security.macros.disable=true --o:net.post_allow.host[0]=wopi-bridge.preprod.qoffice.cloud --o:net.frame_ancestors=https://*.preprod.qoffice.cloud"
+              value: "--o:ssl.enable=false --o:ssl.termination=true --o:logging.level=warning --o:security.macros.disable=true --o:net.post_allow.host[0]=wopi-bridge.preprod.qoffice.cloud --o:net.frame_ancestors=https://*.preprod.qoffice.cloud --o:user_interface.use_integration_theme=true --o:user_interface.brandProductName=qOffice --o:user_interface.brandProductURL=https://qoffice.cloud --o:user_interface.logoURL=/browser/%VERSION%/qoffice/qoffice-logo.svg"
             - name: WOPI_SRC_URL
               value: https://wopi-bridge.preprod.qoffice.cloud
             - name: aliasgroup1
