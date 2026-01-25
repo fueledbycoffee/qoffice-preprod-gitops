@@ -38,6 +38,8 @@ spec:
               value: RS256
             - name: JWKS_URL
               value: http://keycloak.auth.svc.cluster.local:8080/realms/qoffice-preprod/protocol/openid-connect/certs
+            - name: AUTH_ADDITIONAL_ROLES
+              value: qlabs-admin
             - name: REDIS_ADDRESS
               value: redis.infra.svc.cluster.local:6379
             - name: REDIS_PASSWORD
@@ -75,6 +77,8 @@ spec:
               value: http://gateway.platform.svc.cluster.local:8081
             - name: BILLING_URL
               value: http://billing.platform.svc.cluster.local:8080
+            - name: QROOT_URL
+              value: http://qroot.platform.svc.cluster.local:8093
             - name: PROVISIONER_URL
               value: http://provisioner.platform.svc.cluster.local:8081
             - name: QMAIL_SERVICE_URL
