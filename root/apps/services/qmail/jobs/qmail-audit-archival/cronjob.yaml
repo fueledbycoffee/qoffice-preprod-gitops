@@ -16,6 +16,7 @@ spec:
           containers:
             - name: qmail-audit-archival
               image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail-audit-archival:preprod-latest
+              imagePullPolicy: Always
               env:
                 - name: ENVIRONMENT
                   value: "production"

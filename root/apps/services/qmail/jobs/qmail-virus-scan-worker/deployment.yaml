@@ -10,6 +10,7 @@ spec:
       containers:
         - name: qmail-virus-scan-worker
           image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail-virus-scan-worker:preprod-latest
+          imagePullPolicy: Always
           env:
             - name: ENVIRONMENT
               value: "production"

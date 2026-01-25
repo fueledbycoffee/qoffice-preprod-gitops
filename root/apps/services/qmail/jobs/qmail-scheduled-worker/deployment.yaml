@@ -10,6 +10,7 @@ spec:
       containers:
         - name: qmail-scheduled-worker
           image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail-scheduled-worker:preprod-latest
+          imagePullPolicy: Always
           env:
             - name: ENVIRONMENT
               value: "production"

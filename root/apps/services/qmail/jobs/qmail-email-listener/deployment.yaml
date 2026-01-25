@@ -11,6 +11,7 @@ spec:
       containers:
         - name: qmail-email-listener
           image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail-email-listener:preprod-latest
+          imagePullPolicy: Always
           env:
             - name: ENVIRONMENT
               value: "production"
