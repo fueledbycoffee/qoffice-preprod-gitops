@@ -42,6 +42,12 @@ spec:
                 secretKeyRef:
                   name: keycloak-admin
                   key: KEYCLOAK_ADMIN_PASSWORD
+            - name: KC_SPI_THEME_LOGIN_DEFAULT
+              value: qoffice
+          volumeMounts:
+            - name: keycloak-theme
+              mountPath: /opt/keycloak/themes/qoffice
+              readOnly: true
           ports:
             - containerPort: 8080
               name: http
@@ -57,3 +63,8 @@ spec:
               port: 8080
             initialDelaySeconds: 60
             periodSeconds: 30
+      volumes:
+        - name: keycloak-theme
+          hostPath:
+            path: /opt/qoffice/keycloak-theme
+            type: Directory
