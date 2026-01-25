@@ -21,7 +21,7 @@ spec:
               echo "Database is ready!"
       containers:
         - name: qmail
-          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail:preprod-latest
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-qmail:preprod-300b02069591f7a263e05fcd954eb27cc342d750
           ports: [ { containerPort: 8080 } ]
           readinessProbe:
             httpGet:
@@ -66,6 +66,10 @@ spec:
               value: http://keycloak.auth.svc.cluster.local:8080
             - name: KEYCLOAK_REALM
               value: qoffice-preprod
+            - name: OIDC_ISSUER
+              value: https://keycloak.preprod.qoffice.cloud/realms/qoffice-preprod
+            - name: KEYCLOAK_CLIENT_ID
+              value: qmail-app
             - name: OIDC_CLIENT_ID
               value: qmail-service
             - name: OIDC_CLIENT_SECRET
@@ -84,5 +88,34 @@ spec:
               value: "8080"
             - name: JAMES_JMAP_REQUIRED
               value: "false"
+            - name: JAMES_JMAP_URL
+              value: http://james.platform.svc.cluster.local:80/jmap
+            - name: JAMES_WEBADMIN_URL
+              value: http://james.platform.svc.cluster.local:8000
+            - name: JAMES_WEBADMIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_WEBADMIN_USERNAME
+            - name: JAMES_WEBADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_WEBADMIN_PASSWORD
+            - name: JAMES_DEFAULT_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_DEFAULT_DOMAIN
+            - name: JAMES_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_USERNAME
+            - name: JAMES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: james-secrets
+                  key: JAMES_PASSWORD
             - name: CORS_ORIGINS
               value: "https://mail.preprod.qoffice.cloud,https://qmail.preprod.qoffice.cloud,https://shell.preprod.qoffice.cloud,https://preprod.qoffice.cloud"
