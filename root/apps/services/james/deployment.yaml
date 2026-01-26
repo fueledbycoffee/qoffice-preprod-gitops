@@ -136,6 +136,13 @@ spec:
           volumeMounts:
             - name: james-config
               mountPath: /root/conf
+            - name: james-config-overrides
+              mountPath: /root/conf/mailetcontainer.xml
+              subPath: mailetcontainer.xml
+              readOnly: true
+            - name: james-dkim
+              mountPath: /root/conf/dkim
+              readOnly: true
             - name: james-logs
               mountPath: /logs
           resources:
@@ -162,6 +169,12 @@ spec:
       volumes:
         - name: james-config
           emptyDir: {}
+        - name: james-config-overrides
+          configMap:
+            name: james-config-overrides
+        - name: james-dkim
+          secret:
+            secretName: james-dkim
         - name: james-logs
           persistentVolumeClaim:
             claimName: james-logs-pvc
