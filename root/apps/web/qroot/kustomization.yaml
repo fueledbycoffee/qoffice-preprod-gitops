@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
 images:
   - name: rg.fr-par.scw.cloud/pandormedia/qoffice-qroot-web
-    newTag: preprod-20260126-b0f00990-modelsedit
+    newTag: preprod-20260126-b0f00990-modelicons
