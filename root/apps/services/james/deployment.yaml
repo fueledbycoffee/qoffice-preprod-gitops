@@ -17,6 +17,20 @@ spec:
               set -e
               mkdir -p /config
               cp -R /root/conf/* /config/
+              if [ -f /config-overrides/mailetcontainer.xml ]; then
+                cp /config-overrides/mailetcontainer.xml /config/mailetcontainer.xml
+              fi
+              if [ -f /dkim/s2026.private ] && grep -q '__DKIM_PRIVATE_KEY__' /config/mailetcontainer.xml; then
+                awk -v keyfile=/dkim/s2026.private '
+                  {
+                    if ($0 ~ /__DKIM_PRIVATE_KEY__/) {
+                      while ((getline line < keyfile) > 0) print line;
+                      next;
+                    }
+                    print;
+                  }' /config/mailetcontainer.xml > /config/mailetcontainer.xml.tmp
+                mv /config/mailetcontainer.xml.tmp /config/mailetcontainer.xml
+              fi
               if [ -f /config/domainlist.xml ] && [ -n "${JAMES_DEFAULT_DOMAIN:-}" ]; then
                 sed -i "s#<defaultDomain>.*</defaultDomain>#<defaultDomain>${JAMES_DEFAULT_DOMAIN}</defaultDomain>#g" /config/domainlist.xml
               fi
@@ -56,6 +70,12 @@ spec:
           volumeMounts:
             - name: james-config
               mountPath: /config
+            - name: james-config-overrides
+              mountPath: /config-overrides
+              readOnly: true
+            - name: james-dkim
+              mountPath: /dkim
+              readOnly: true
       containers:
         - name: james
           image: apache/james:memory-3.8.2
@@ -136,13 +156,6 @@ spec:
           volumeMounts:
             - name: james-config
               mountPath: /root/conf
-            - name: james-config-overrides
-              mountPath: /root/conf/mailetcontainer.xml
-              subPath: mailetcontainer.xml
-              readOnly: true
-            - name: james-dkim
-              mountPath: /root/conf/dkim
-              readOnly: true
             - name: james-logs
               mountPath: /logs
           resources:

@@ -108,9 +108,12 @@ data:
             </processor>
     
             <processor state="relay" enableJmx="true">
+                <mailet match="All" class="org.apache.james.jdkim.mailets.ConvertTo7Bit"/>
                 <mailet match="All" class="org.apache.james.jdkim.mailets.DKIMSign">
-                    <signatureTemplate>v=1; a=rsa-sha256; c=relaxed/simple; d=qoffice.cloud; s=s2026; q=dns/txt; h=From:To:Subject:Date:Message-ID; bh=; b=</signatureTemplate>
-                    <privateKeyFilepath>/root/conf/dkim/s2026.private</privateKeyFilepath>
+                    <signatureTemplate>v=1; a=rsa-sha256; c=relaxed/simple; d=qoffice.cloud; s=s2026; q=dns/txt; h=from:to:subject:date:message-id; bh=; b=;</signatureTemplate>
+                    <privateKey>
+    __DKIM_PRIVATE_KEY__
+                    </privateKey>
                 </mailet>
                 <mailet match="All" class="RemoteDelivery">
                     <outgoingQueue>outgoing</outgoingQueue>
