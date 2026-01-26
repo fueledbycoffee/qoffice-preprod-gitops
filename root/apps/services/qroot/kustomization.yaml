@@ -6,4 +6,4 @@ resources:
   - ingress.yaml
 images:
   - name: rg.fr-par.scw.cloud/pandormedia/qoffice-qroot
-    newTag: preprod-20260126-b0f00990-lifecycle
+    newTag: preprod-20260126-1202-softdelete
