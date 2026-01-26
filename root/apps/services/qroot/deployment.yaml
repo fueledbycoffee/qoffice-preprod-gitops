@@ -29,6 +29,11 @@ spec:
                 secretKeyRef:
                   name: qroot-secrets
                   key: DB_PASSWORD
+            - name: PROVIDER_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qroot-secrets
+                  key: PROVIDER_ENCRYPTION_KEY
             - name: DB_SSLMODE
               value: disable
             - name: JWT_ALGORITHM
