@@ -17,7 +17,7 @@ spec:
     spec:
       initContainers:
         - name: collabora-dark-icons
-          image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260126094245
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260126112942
           imagePullPolicy: Always
           command:
             - /bin/sh
@@ -32,7 +32,7 @@ spec:
             - name: collabora-dark-icons
               mountPath: /work/dark
         - name: collabora-qoffice-branding
-          image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260126094245
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260126112942
           imagePullPolicy: Always
           command:
             - /bin/sh
@@ -52,7 +52,7 @@ spec:
               mountPath: /work
       containers:
         - name: collabora
-          image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260126094245
+          image: rg.fr-par.scw.cloud/pandormedia/qoffice-collabora:preprod-collabora-20260126112942
           imagePullPolicy: Always
           ports:
             - containerPort: 9980
